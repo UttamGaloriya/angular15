@@ -4,8 +4,13 @@ align-items: center;
 justify-content: center;
 }
 .login-container{
-    width: 100%;
+    width: 50%;
 }
 .mat-mdc-card-actions-align-end{
 gap: 10px;
 }
+
+.error.mat-snack-bar-container{background: #cc0000;color:#ffffff ;}
+.success.mat-snack-bar-container{background: rgb(0, 184, 0);color:#ffffff ;}
+.info.mat-snack-bar-container{background: #fff265;color:#000000 ;}
+.mat-simple-snackbar-action button {color: #fff;}

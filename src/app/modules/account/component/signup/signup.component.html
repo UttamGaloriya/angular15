@@ -1,1 +1,86 @@
-<p>signup works!</p>
+<div class="container">
+    <mat-card class="login-container">
+        <mat-card-header>
+            <mat-card-title>Sign Up</mat-card-title>
+
+        </mat-card-header>
+        <mat-card-content>
+            <!-- Login Form -->
+            <form [formGroup]="form" (ngSubmit)="signUp()" class="form">
+                <!-- First Name  -->
+                <mat-form-field appearance="outline" class="max-100">
+                    <mat-label>First Name</mat-label>
+                    <input matInput formControlName="firstName">
+                    <mat-error *ngIf="form.get('firstName')?.invalid && (form.get('firstName')?.dirty || form.get('firstName')?.touched)">
+                        <span *ngIf="form.get('firstName')?.errors?.['required']">Enter FirstName</span>
+                        <span *ngIf="form.get('firstName')?.errors?.['invalidInput']">only alphabet</span>
+                        <span *ngIf="form.get('firstName')?.errors?.['spacesOnly']">only space not allowed</span>
+                        <span></span>
+                    </mat-error>
+                </mat-form-field>
+                <!-- last Name  -->
+                <mat-form-field appearance="outline" class="max-100">
+                    <mat-label>Last Name</mat-label>
+                    <input matInput formControlName="lastName">
+                    <mat-error *ngIf="form.get('lastName')?.invalid && (form.get('lastName')?.dirty || form.get('lastName')?.touched)">
+                        <span *ngIf="form.get('lastName')?.errors?.['lastName']">Enter LastName</span>
+                        <span *ngIf="form.get('lastName')?.errors?.['invalidInput']">only alphabet</span>
+                        <span *ngIf="form.get('lastName')?.errors?.['spacesOnly']">only space not allowed</span>
+                        <span></span>
+                    </mat-error>
+                </mat-form-field>
+                <!-- user name  -->
+                <mat-form-field appearance="outline" class="max-100">
+                    <mat-label>User Name</mat-label>
+                    <input matInput formControlName="username">
+                    <mat-error *ngIf="form.get('username')?.invalid && (form.get('username')?.dirty || form.get('username')?.touched)">
+                        <span *ngIf="form.get('username')?.errors?.['lastName']">Enter LastName</span>
+                        <span *ngIf="form.get('username')?.errors?.['invalidInput']">Special not allowed</span>
+                        <span *ngIf="form.get('username')?.errors?.['spacesOnly']">only space not allowed</span>
+                        <span></span>
+                    </mat-error>
+                </mat-form-field>
+                <!-- user type -->
+                <mat-form-field appearance="outline" class="max-100">
+                    <mat-label>Choose an option</mat-label>
+                    <mat-select formControlName="type">
+                        <mat-option *ngFor="let type of userType" [value]="type">{{type}}</mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="form.get('type')?.invalid && (form.get('type')?.dirty || form.get('type')?.touched)">
+                        <span *ngIf="form.get('type')?.errors">Fill any options</span>
+                    </mat-error>
+                </mat-form-field>
+                <!-- password -->
+                <mat-form-field appearance="outline" class="max-100">
+                    <mat-label>password</mat-label>
+                    <input matInput [type]="hide ? 'password' : 'text'" formControlName="password">
+                    <button mat-icon-button matSuffix (click)="hide = !hide" type="button" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                    </button>
+                    <mat-error *ngIf="form.get('password')?.invalid && (form.get('password')?.dirty || form.get('password')?.touched)">
+                        <span *ngIf="form.get('password')?.errors">Enter password</span>
+                    </mat-error>
+                </mat-form-field>
+                <!-- confirm password  -->
+                <mat-form-field appearance="outline" class="max-100">
+                    <mat-label>Confirm Password</mat-label>
+                    <input matInput [type]="hide ? 'password' : 'text'" formControlName="confirmPassword">
+                    <button mat-icon-button matSuffix (click)="hide = !hide" type="button" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                    </button>
+                    <mat-error *ngIf="form.get('confirmPassword')?.invalid && (form.get('confirmPassword')?.dirty || form.get('confirmPassword')?.touched)">
+                        <span *ngIf="form.get('confirmPassword')?.errors?.['confirmedValidator']">Password should be not match</span>
+                        <span *ngIf="form.get('confirmPassword')?.errors">Enter Confirm Password</span>
+                    </mat-error>
+                </mat-form-field>
+                <div class="form-button">
+                    <button mat-flat-button color="primary">
+                        Signup
+                    </button>
+                    <p>Already have Account <a routerLink="/account/login">Login ?</a></p>
+                </div>
+            </form>
+        </mat-card-content>
+
+    </mat-card>
+</div>

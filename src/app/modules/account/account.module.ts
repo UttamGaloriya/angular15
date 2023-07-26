@@ -5,6 +5,7 @@ import { AccountRoutingModule } from './account-routing.module';
 import { LoginComponent } from './component/login/login.component';
 import { SignupComponent } from './component/signup/signup.component';
 import { MaterialModule } from 'src/app/shared/material/material.module';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -15,7 +16,10 @@ import { MaterialModule } from 'src/app/shared/material/material.module';
   imports: [
     CommonModule,
     AccountRoutingModule,
-    MaterialModule
+    MaterialModule,
+    ReactiveFormsModule
+
+
   ]
 })
 export class AccountModule { }

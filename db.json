@@ -1,0 +1,21 @@
+{
+  "users": [
+    {
+      "firstName": "uttam",
+      "lastName": "galoriya",
+      "username": "uttam",
+      "type": "admin",
+      "password": "12345",
+      "confirmPassword": "12345",
+      "id": 1
+    },
+    {
+      "firstName": "raj",
+      "lastName": "rab",
+      "username": "raj",
+      "type": "admin",
+      "password": "12345",
+      "id": 2
+    }
+  ]
+}
