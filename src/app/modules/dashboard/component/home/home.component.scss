@@ -1,0 +1,22 @@
+.mat-mdc-nav-list{
+     width: 100%;
+     text-align: center;
+     padding: 0;
+}
+ .link {
+    font-size: 22px;
+    letter-spacing: 0.1rem;
+    text-transform: capitalize;
+    display: flex;
+    justify-content: center;
+    text-decoration: none;
+    color: #FFF;
+    &:hover ,&:focus{background-color: rgb(141, 174, 236);}
+    padding: 8px 0;
+}
+.mat-mdc-nav-list .active{
+    background: #f1a8a8;
+}
+.example-spacer {
+    flex: 1 1 auto;
+  }

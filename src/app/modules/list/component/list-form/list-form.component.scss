@@ -1,0 +1,17 @@
+.user-form{display: flex;gap: 10px;align-items: baseline;}
+.max-100{width: 30%;}
+.form-button{display: flex;justify-content: flex-end}
+.form-btn{margin-left: auto;}
+.form-btn button{margin-left: 16px;}
+.cancel-btn{margin-left: auto;}
+
+@media (max-width: 700px) {
+    .max-100{width: 80%;}
+    .user-form{
+        align-items: center;
+        border: 1px solid;
+        padding: 8px;
+        flex-direction: column;
+    }
+    .cancel-btn{margin: 0;}
+}

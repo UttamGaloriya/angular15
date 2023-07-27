@@ -1,0 +1,23 @@
+// .list-title{display: flex;padding: 8px 16px;font-size: 20px;margin-bottom:20px ;background: #8bfade;}
+// .list-details{display: flex;width: 100%;}
+// .list{padding: 16px 16px;border: 1px solid #000;}
+// .list-title span,.list-details span{font-size: 20px;width: 100%;}
+// .list-span{width: 100%;font-size: 16px;}
+// .user-form{width: 100%;}
+// li{list-style: none;}
+// .list-details-container{width: 100%;display: flex;}
+// .mat-list-base .mat-list-item, .mat-list-base .mat-list-option {height: 100%;}
+
+.mat-list-icon-span{background-color: #3f51b5 ; color:#Fff;display: flex;
+    align-items: center;
+    justify-content: center;}
+// .mat-list .mat-list-item{margin-bottom: 16px;}
+// .mat-list-base .mat-list-item .mat-list-icon{font-size: 16px;display: flex;justify-content: center;align-items: center;}
+.list{display: flex;align-items: center;justify-content: space-between;}
+.list-details{
+    display: flex;flex-direction: column;
+}
+.sub-details{
+    font-size: 14px;
+   
+}
