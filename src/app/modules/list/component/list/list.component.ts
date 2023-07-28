@@ -1,7 +1,12 @@
 import { Component } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
+import { LoginComponent } from 'src/app/modules/account/component/login/login.component';
+import { SignupComponent } from 'src/app/modules/account/component/signup/signup.component';
 import { UserService } from 'src/app/services/user.service';
 import { UserData } from 'src/app/shared/all-interface';
+import { ListDialogComponent } from '../list-dialog/list-dialog.component';
+import { ConfirmComponent } from '../confirm/confirm.component';
 
 @Component({
   selector: 'app-list',
@@ -9,9 +14,16 @@ import { UserData } from 'src/app/shared/all-interface';
   styleUrls: ['./list.component.scss']
 })
 export class ListComponent {
+  adminToken: boolean = false
   users$ = this.userService.allUser();
   userList: UserData[] = []
-  constructor(private userService: UserService) { }
+  constructor(private userService: UserService, public dialog: MatDialog) {
+    let token = this.userService.getToken
+    console.log(token)
+    if (token == 'admin-token') {
+      this.adminToken = true;
+    }
+  }
   ngOnInit() {
     this.getAllData()
   }
@@ -27,7 +39,14 @@ export class ListComponent {
     this.userList[index] = newUser
   }
   delete(user: UserData) {
-
+    this.dialog.open(ConfirmComponent, {
+      data: user,
+      width: '350px',
+    }).afterClosed().subscribe((res) => {
+      if (res) {
+        this.userService.delete(user.id).subscribe((res) => { console.log(res) })
+      }
+    })
   }
   cancel() {
     this.userList.map((res) => res.isEditable = false)
@@ -38,5 +57,18 @@ export class ListComponent {
     const updatedData = { ...form, ...event.value };
     this.userService.update(updatedData, id).subscribe((res) => { console.log(res) })
     this.getAllData()
+  }
+  details(user: UserData) {
+    this.dialog.open(ListDialogComponent, {
+      data: user,
+      maxWidth: '50vw',
+      width: '100%'
+    }).afterClosed().subscribe((res) => {
+      if (res) {
+        console.log(res)
+        setTimeout(() => this.getAllData(), 1000)
+
+      }
+    })
   }
 }

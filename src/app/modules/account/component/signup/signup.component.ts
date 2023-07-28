@@ -1,6 +1,9 @@
-import { Component } from '@angular/core';
-import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Component, Inject } from '@angular/core';
+import { AbstractControl, FormBuilder, FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 import { UserService } from 'src/app/services/user.service';
+import { UserData } from 'src/app/shared/all-interface';
 
 @Component({
   selector: 'app-signup',
@@ -12,9 +15,8 @@ export class SignupComponent {
   form!: FormGroup
   userType: any[] = ['admin', 'user']
 
-  constructor(private fb: FormBuilder, private userServices: UserService) {
-
-  }
+  constructor(private fb: FormBuilder, private userServices: UserService, private route: Router
+  ) { }
 
   ngOnInit(): void {
     this.signUpForm()
@@ -27,12 +29,13 @@ export class SignupComponent {
       username: ['', [Validators.required, this.validateUser]],
       type: ['', [Validators.required]],
       password: ['', [Validators.required,
-      Validators.maxLength(40),
+      Validators.maxLength(40), this.strongPasswordValidator()
       ]],
       confirmPassword: ['', [Validators.required]],
     }, {
       validator: this.ConfirmedValidator('password', 'confirmPassword')
     })
+
   }
 
 
@@ -80,13 +83,25 @@ export class SignupComponent {
     return null;
   }
 
+  strongPasswordValidator(): ValidatorFn {
+    return (control: AbstractControl): { [key: string]: any } | null => {
+      if (!control.value) {
+        return null;
+      }
+      const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+      if (!passwordPattern.test(control.value)) {
+        return { strongPassword: true };
+      }
+      return null;
+    };
+  }
+
   get f(): { [key: string]: AbstractControl } { return this.form.controls; }
   signUp() {
+    const { confirmPassword, ...form } = this.form.value
     if (this.form.valid) {
-      const { confirmPassword, ...form } = this.form.value
-      let data = this.userServices.signUp(form).subscribe((res) => { console.log(res, "res"), console.log("done") },
+      let data = this.userServices.signUp(form).subscribe((res) => { this.route.navigateByUrl('/account/login') },
         (error) => { console.log(error.error) }, () => { console.log("complete") })
-      console.log(data)
     }
   }
 }

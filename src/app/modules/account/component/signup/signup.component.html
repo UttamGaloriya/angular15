@@ -1,8 +1,7 @@
 <div class="container">
     <mat-card class="login-container">
         <mat-card-header>
-            <mat-card-title>Sign Up</mat-card-title>
-
+            <h2 class="title-account">SignUp</h2>
         </mat-card-header>
         <mat-card-content>
             <!-- Login Form -->
@@ -12,20 +11,28 @@
                     <mat-label>First Name</mat-label>
                     <input matInput formControlName="firstName">
                     <mat-error *ngIf="form.get('firstName')?.invalid && (form.get('firstName')?.dirty || form.get('firstName')?.touched)">
-                        <span *ngIf="form.get('firstName')?.errors?.['required']">Enter FirstName</span>
-                        <span *ngIf="form.get('firstName')?.errors?.['invalidInput']">only alphabet</span>
-                        <span *ngIf="form.get('firstName')?.errors?.['spacesOnly']">only space not allowed</span>
-                        <span></span>
+                        <span *ngIf="form.get('firstName')?.errors?.['required']; else notRequired">Enter FirstName</span>
+                        <ng-template #notRequired>
+                            <span *ngIf="form.get('firstName')?.errors?.['invalidInput']; else notInvalidInput">only alphabet</span>
+                            <ng-template #notInvalidInput>
+                                <span *ngIf="form.get('firstName')?.errors?.['spacesOnly']">only space not allowed</span>
+                            </ng-template>
+                        </ng-template>
                     </mat-error>
+
                 </mat-form-field>
                 <!-- last Name  -->
                 <mat-form-field appearance="outline" class="max-100">
                     <mat-label>Last Name</mat-label>
                     <input matInput formControlName="lastName">
                     <mat-error *ngIf="form.get('lastName')?.invalid && (form.get('lastName')?.dirty || form.get('lastName')?.touched)">
-                        <span *ngIf="form.get('lastName')?.errors?.['lastName']">Enter LastName</span>
-                        <span *ngIf="form.get('lastName')?.errors?.['invalidInput']">only alphabet</span>
-                        <span *ngIf="form.get('lastName')?.errors?.['spacesOnly']">only space not allowed</span>
+                        <span *ngIf="form.get('lastName')?.errors?.['required']; else notRequired">Enter LastName</span>
+                        <ng-template #notRequired>
+                            <span *ngIf="form.get('lastName')?.errors?.['invalidInput'] ; else notInvalidInput">only alphabet</span>
+                            <ng-template #notInvalidInput>
+                                <span *ngIf="form.get('lastName')?.errors?.['spacesOnly']">only space not allowed</span>
+                            </ng-template>
+                        </ng-template>
                         <span></span>
                     </mat-error>
                 </mat-form-field>
@@ -34,10 +41,13 @@
                     <mat-label>User Name</mat-label>
                     <input matInput formControlName="username">
                     <mat-error *ngIf="form.get('username')?.invalid && (form.get('username')?.dirty || form.get('username')?.touched)">
-                        <span *ngIf="form.get('username')?.errors?.['lastName']">Enter LastName</span>
-                        <span *ngIf="form.get('username')?.errors?.['invalidInput']">Special not allowed</span>
-                        <span *ngIf="form.get('username')?.errors?.['spacesOnly']">only space not allowed</span>
-                        <span></span>
+                        <span *ngIf="form.get('username')?.errors?.['required'] ; else notRequired">Enter UserName</span>
+                        <ng-template #notRequired>
+                            <span *ngIf="form.get('username')?.errors?.['invalidInput'] ; else notInvalidInput">Special not allowed</span>
+                            <ng-template #notInvalidInput>
+                                <span *ngIf="form.get('username')?.errors?.['spacesOnly']">only space not allowed</span>
+                            </ng-template>
+                        </ng-template>
                     </mat-error>
                 </mat-form-field>
                 <!-- user type -->
@@ -57,10 +67,11 @@
                     <button mat-icon-button matSuffix (click)="hide = !hide" type="button" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
                         <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
                     </button>
-                    <mat-error *ngIf="form.get('password')?.invalid && (form.get('password')?.dirty || form.get('password')?.touched)">
-                        <span *ngIf="form.get('password')?.errors">Enter password</span>
-                    </mat-error>
+                    <mat-error *ngIf="form.get('password')?.errors?.['required']">Password is required</mat-error>
                 </mat-form-field>
+                <mat-error *ngIf="form.get('password')?.errors?.['strongPassword']">
+                    Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one number, and one special character (@ $ ! % * ? &)
+                </mat-error>
                 <!-- confirm password  -->
                 <mat-form-field appearance="outline" class="max-100">
                     <mat-label>Confirm Password</mat-label>

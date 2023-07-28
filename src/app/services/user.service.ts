@@ -26,6 +26,10 @@ export class UserService {
   signUp(user: any): Observable<any> {
     return this.http.post(`${this.url}/users`, user)
   }
+  delete(id: number): Observable<any> {
+    return this.http.delete(`${this.url}/users/${id}`)
+  }
+
   addToken(user: UserData) {
     localStorage.removeItem('token')
     if (user.type === 'admin') {

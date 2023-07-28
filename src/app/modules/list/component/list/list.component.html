@@ -1,28 +1,24 @@
 <mat-card class="container">
-    <h1>list</h1>
+    <h2>list</h2>
     <mat-list role="list">
         <mat-list-item *ngFor=" let user of userList ,let i=index" role="listitem">
-            <span matListItemIcon class="mat-list-icon-span">{{i}}</span>
+            <span matListItemIcon class="mat-list-icon-span">{{i+1}}</span>
             <div class="list">
                 <div class="list-details">
                     <span *ngIf="!user.isEditable">{{user.firstName | titlecase}} {{user.lastName | titlecase}}</span>
                     <span class="sub-details" *ngIf="!user.isEditable">{{user.username}}</span>
                     <app-list-form *ngIf="user.isEditable" mat-line [user]="user" (newCancelEvent)="cancel()" (newSubmitEvent)="submit($event ,user.id ,user)" class="user-form"></app-list-form>
                 </div>
-                <span *ngIf="!user.isEditable">
-                    <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
-                        <mat-icon>more_vert</mat-icon>
+                <span *ngIf=" !user.isEditable" class="button-icon">
+                    <button mat-icon-button (click)="edit(user)" *ngIf="adminToken">
+                        <mat-icon color="primary">edit</mat-icon>
                     </button>
-                    <mat-menu #menu="matMenu">
-                        <button mat-menu-item (click)="edit(user)">
-                            <mat-icon color="primary">edit</mat-icon>
-                            <span>Edit</span>
-                        </button>
-                        <button mat-menu-item (click)="delete(user)">
-                            <mat-icon color="warn">delete</mat-icon>
-                            <span>Delete</span>
-                        </button>
-                    </mat-menu>
+                    <button mat-icon-button (click)="details(user)">
+                        <mat-icon color="primary">remove_red_eye</mat-icon>
+                    </button>
+                    <button mat-icon-button (click)="delete(user)" *ngIf="adminToken">
+                        <mat-icon color="warn">delete</mat-icon>
+                    </button>
                 </span>
             </div>
         </mat-list-item>

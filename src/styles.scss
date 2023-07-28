@@ -21,6 +21,17 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     flex-direction: column;
     align-items: baseline;
 }
+.edit-form-button{
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 10px;
+}
+.title-account{
+    width: 100%;
+    text-align: center;
+}
+
 //snack bar
 .error.mat-snack-bar-container{background: #cc0000;color:#ffffff ;}
 .success.mat-snack-bar-container{background: rgb(0, 184, 0);color:#ffffff ;}

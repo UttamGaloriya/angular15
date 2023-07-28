@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { SnackbarService } from 'src/app/services/snackbar.service';
 import { UserService } from 'src/app/services/user.service';
@@ -22,7 +22,7 @@ export class LoginComponent {
   loginForm() {
     this.form = this.fb.group({
       username: ['', [Validators.required, this.validateUser]],
-      password: ['', [Validators.required]],
+      password: ['', [Validators.required, this.strongPasswordValidator()]],
 
     })
   }
@@ -38,6 +38,18 @@ export class LoginComponent {
       control.setValue(trimmedValue);
     }
     return null;
+  }
+  strongPasswordValidator(): ValidatorFn {
+    return (control: AbstractControl): { [key: string]: any } | null => {
+      if (!control.value) {
+        return null;
+      }
+      const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+      if (!passwordPattern.test(control.value)) {
+        return { strongPassword: true };
+      }
+      return null;
+    };
   }
 
   login() {

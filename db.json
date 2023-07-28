@@ -1,25 +1,25 @@
 {
   "users": [
     {
-      "firstName": "uttam",
+      "firstName": "meeet",
       "lastName": "galoriya",
-      "username": "uttambhai",
+      "username": "uttam",
       "type": "admin",
       "password": "Uttam@12345",
       "id": 1
     },
     {
-      "firstName": "raj",
-      "lastName": "rab",
-      "username": "yashkumar",
-      "type": "admin",
+      "firstName": "uttam",
+      "lastName": "galoriya",
+      "username": "ug",
+      "type": "user",
       "password": "12345",
       "id": 2
     },
     {
-      "firstName": "ghfgh",
-      "lastName": "ghjgj",
-      "username": "madhav",
+      "firstName": "raj",
+      "lastName": "hia",
+      "username": "raj",
       "type": "user",
       "password": "12345",
       "id": 3
