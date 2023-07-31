@@ -11,6 +11,7 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class LoginComponent {
   form!: FormGroup;
+  spinier: boolean = false;
   hide: boolean = true
   userType: any[] = ['admin', 'user']
   constructor(private fb: FormBuilder, private userServices: UserService, private snackbar: SnackbarService, private router: Router) {
@@ -54,9 +55,10 @@ export class LoginComponent {
 
   login() {
     if (this.form.valid) {
+      this.spinier = true
       this.userServices.login(this.form.value).subscribe(
-        (res) => { console.log(res) },
-        (error) => { this.snackbar.showSnackBar('Invalid User Name and Password', 'ok', 'error') },
+        (res) => { console.log(res), this.spinier = false },
+        (error) => { this.snackbar.showSnackBar('Invalid User Name and Password', 'ok', 'error'), this.spinier = false },
         () => { this.router.navigateByUrl('/dashboard'), this.snackbar.showSnackBar('Login successful', 'ok', 'success') })
     }
   }

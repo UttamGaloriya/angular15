@@ -1,5 +1,11 @@
 <mat-card class="container">
     <h2>list</h2>
+    <mat-form-field appearance="outline" class="max-100">
+        <mat-label>User Name</mat-label>
+        <input matInput [(ngModel)]="search" (input)="onSearch()">
+    </mat-form-field>
+
+
     <mat-list role="list">
         <mat-list-item *ngFor=" let user of userList ,let i=index" role="listitem">
             <span matListItemIcon class="mat-list-icon-span">{{i+1}}</span>

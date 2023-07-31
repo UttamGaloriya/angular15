@@ -11,6 +11,7 @@ import { UserData } from 'src/app/shared/all-interface';
   styleUrls: ['./signup.component.scss']
 })
 export class SignupComponent {
+  spinier: boolean = false;
   hide: boolean = true
   form!: FormGroup
   userType: any[] = ['admin', 'user']
@@ -100,8 +101,9 @@ export class SignupComponent {
   signUp() {
     const { confirmPassword, ...form } = this.form.value
     if (this.form.valid) {
-      let data = this.userServices.signUp(form).subscribe((res) => { this.route.navigateByUrl('/account/login') },
-        (error) => { console.log(error.error) }, () => { console.log("complete") })
+      this.spinier = true
+      let data = this.userServices.signUp(form).subscribe((res) => { this.route.navigateByUrl('/account/login'), this.spinier = false },
+        (error) => { console.log(error.error), this.spinier = false }, () => { console.log("complete") })
     }
   }
 }

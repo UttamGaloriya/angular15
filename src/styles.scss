@@ -49,3 +49,15 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     background: hsl(236, 78%, 61%);
     color: #FFF;
 }
+.spinier{
+    display: flex;
+    justify-content: center;
+    background: #7fa1ff52;
+    position: absolute;
+    align-items: center;
+    left: 0px;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    z-index: 3;
+ }

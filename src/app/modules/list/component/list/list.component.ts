@@ -18,6 +18,7 @@ export class ListComponent {
   adminToken: boolean = false
   users$ = this.userService.allUser();
   userList: UserData[] = []
+  search: string = ''
   constructor(private userService: UserService, private dialog: MatDialog, private snackBar: SnackbarService) {
     let token = this.userService.getToken
     console.log(token)
@@ -71,5 +72,16 @@ export class ListComponent {
 
       }
     })
+  }
+  onSearch() {
+    let list = this.userList.filter((res) => {
+      const name = res.username;
+      return name.toLowerCase().includes(this.search.toLowerCase());
+    })
+    console.log('list:', list)
+    this.userList = list
+    if (this.search == null || this.search == '') {
+      this.getAllData()
+    }
   }
 }
