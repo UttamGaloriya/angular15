@@ -58,7 +58,7 @@ export class LoginComponent {
       console.log(this.form.value.username + "" + this.form.value.password)
       this.userServices.login(this.form.value).subscribe(
         (res) => { console.log(res) },
-        (error) => { this.snackbar.showSnackBar(error.error, 'ok', 'success') },
+        (error) => { this.snackbar.showSnackBar('Invalid User Name and Password', 'ok', 'success') },
         () => { this.router.navigateByUrl('/dashboard') })
     }
   }
