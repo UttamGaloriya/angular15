@@ -14,10 +14,18 @@
         </button>
         <span>My App</span>
         <span class="example-spacer"></span>
-        <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
-            <mat-icon>more_vert</mat-icon>
+        <button mat-button [matMenuTriggerFor]="profile" aria-label="Example icon-button with a menu">
+            {{user.username}}<mat-icon>keyboard_arrow_down</mat-icon>
         </button>
+        <!-- <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+            <mat-icon>more_vert</mat-icon>
+        </button> -->
         <mat-menu #menu="matMenu">
+            <button mat-menu-item (click)="logout()">
+                <span>Logout</span>
+            </button>
+        </mat-menu>
+        <mat-menu #profile="matMenu">
             <button mat-menu-item (click)="logout()">
                 <span>Logout</span>
             </button>

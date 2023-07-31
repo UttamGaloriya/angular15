@@ -58,6 +58,7 @@ import { MatTreeModule } from '@angular/material/tree';
 import { OverlayModule } from '@angular/cdk/overlay';
 import { CdkMenuModule } from '@angular/cdk/menu';
 import { DialogModule } from '@angular/cdk/dialog';
+import { NgChartsModule } from 'ng2-charts';
 
 @NgModule({
   exports: [
@@ -109,6 +110,7 @@ import { DialogModule } from '@angular/cdk/dialog';
     PortalModule,
     ScrollingModule,
     DialogModule,
+    NgChartsModule
   ]
 })
 export class MaterialModule { }

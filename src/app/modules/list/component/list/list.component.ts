@@ -7,6 +7,7 @@ import { UserService } from 'src/app/services/user.service';
 import { UserData } from 'src/app/shared/all-interface';
 import { ListDialogComponent } from '../list-dialog/list-dialog.component';
 import { ConfirmComponent } from '../confirm/confirm.component';
+import { SnackbarService } from 'src/app/services/snackbar.service';
 
 @Component({
   selector: 'app-list',
@@ -17,7 +18,7 @@ export class ListComponent {
   adminToken: boolean = false
   users$ = this.userService.allUser();
   userList: UserData[] = []
-  constructor(private userService: UserService, public dialog: MatDialog) {
+  constructor(private userService: UserService, private dialog: MatDialog, private snackBar: SnackbarService) {
     let token = this.userService.getToken
     console.log(token)
     if (token == 'admin-token') {
@@ -44,7 +45,7 @@ export class ListComponent {
       width: '350px',
     }).afterClosed().subscribe((res) => {
       if (res) {
-        this.userService.delete(user.id).subscribe((res) => { console.log(res) })
+        this.userService.delete(user.id).subscribe((res) => { console.log(res), this.snackBar.showSnackBar('data delete successful', 'ok', 'success') })
       }
     })
   }

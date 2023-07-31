@@ -1,8 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, map, tap, throwError } from 'rxjs';
+import { BehaviorSubject, Observable, map, switchMap, tap, throwError } from 'rxjs';
 import { User, UserData } from '../shared/all-interface';
 import { Router } from '@angular/router';
+import { SnackbarService } from './snackbar.service';
 
 @Injectable({
   providedIn: 'root'
@@ -10,21 +11,32 @@ import { Router } from '@angular/router';
 export class UserService {
   private url = 'http://localhost:3000'
   private usersUrl = 'http://localhost:3000/users'
-  constructor(private http: HttpClient, private router: Router) { }
+
+
+  userData = new BehaviorSubject<any>({})
+
+  constructor(private http: HttpClient, private router: Router, private snackBar: SnackbarService) {
+    let id = localStorage.getItem('userId')
+    if (id != null) {
+      this.getUSer(id).subscribe((res) => { this.userData.next(res) })
+    } else {
+      localStorage.removeItem('token')
+    }
+  }
 
   login(user: User): Observable<any | null> {
     return this.http.get<User[]>(this.usersUrl).pipe(
       map((users: User[]) => users.find((u: any) => u.username === user.username && u.password === user.password || null)),
-      tap((data: any) => { this.addToken(data) }),
+      tap((data: any) => { this.addToken(data), this.userData.next(data), console.log(this.userData), localStorage.setItem('userId', data.id) }),
     );
   }
 
   update(user: UserData, id: number): Observable<any> {
-    return this.http.put(`${this.url}/users/${id}`, user)
+    return this.http.put(`${this.url}/users/${id}`, user).pipe(tap((res) => { this.userData.next(res) }))
   }
 
-  signUp(user: any): Observable<any> {
-    return this.http.post(`${this.url}/users`, user)
+  signUp(user: UserData): Observable<any> {
+    return this.http.post(`${this.url}/users`, user).pipe((tap((res) => { this.snackBar.showSnackBar(`data add successfully`, 'ok', 'success') })))
   }
   delete(id: number): Observable<any> {
     return this.http.delete(`${this.url}/users/${id}`)
@@ -44,6 +56,9 @@ export class UserService {
     return this.http.get<User[]>(`${this.url}/users`)
   }
 
+  getUSer(id: number | string): Observable<any> {
+    return this.http.get<UserData>(`${this.url}/users/${id}`)
+  }
   get getToken() {
     const token = localStorage.getItem("token") || null;
     return token
@@ -54,4 +69,11 @@ export class UserService {
     this.router.navigateByUrl('/account/login')
   }
 
+  getUserProfile(): Observable<any> {
+    return this.userData.pipe(
+      switchMap((data: any) => {
+        return [data]
+      })
+    )
+  }
 }

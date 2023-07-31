@@ -26,10 +26,10 @@
     },
     {
       "firstName": "raj",
-      "lastName": "boda",
-      "username": "raj123",
+      "lastName": "ram",
+      "username": "raj",
       "type": "user",
-      "password": "Raj@1234",
+      "password": "Raj@12345",
       "id": 4
     }
   ]

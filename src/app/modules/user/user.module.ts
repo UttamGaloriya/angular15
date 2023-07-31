@@ -2,13 +2,21 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { UserRoutingModule } from './user-routing.module';
+import { ShowChartComponent } from './component/show-chart/show-chart.component';
+import { MaterialModule } from 'src/app/shared/material/material.module';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
 
 
 @NgModule({
-  declarations: [],
+  declarations: [
+    ShowChartComponent
+  ],
   imports: [
     CommonModule,
-    UserRoutingModule
+    UserRoutingModule,
+    MaterialModule,
+
+
   ]
 })
 export class UserModule { }
