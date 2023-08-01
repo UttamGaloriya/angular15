@@ -19,6 +19,8 @@ export class ListComponent {
   users$ = this.userService.allUser();
   userList: UserData[] = []
   search: string = ''
+  listEmpty: boolean = false
+  tempData: UserData[] = []
   constructor(private userService: UserService, private dialog: MatDialog, private snackBar: SnackbarService) {
     let token = this.userService.getToken
     console.log(token)
@@ -30,8 +32,9 @@ export class ListComponent {
     this.getAllData()
   }
   getAllData() {
-    this.users$.subscribe((res) => { this.userList = res });
+    this.users$.subscribe((res) => { this.userList = res, this.tempData = res });
     this.userList.map((res) => res.isEditable = false)
+    this.tempData.map((res) => res.isEditable = false)
   }
   edit(user: UserData) {
     this.userList.map((res) => res.isEditable = false)
@@ -46,7 +49,7 @@ export class ListComponent {
       width: '350px',
     }).afterClosed().subscribe((res) => {
       if (res) {
-        this.userService.delete(user.id).subscribe((res) => { console.log(res), this.snackBar.showSnackBar('data delete successful', 'ok', 'success') })
+        this.userService.delete(user.id).subscribe((res) => { console.log(res), this.getAllData(), this.snackBar.showSnackBar('data delete successful', 'ok', 'success') })
       }
     })
   }
@@ -74,14 +77,23 @@ export class ListComponent {
     })
   }
   onSearch() {
-    let list = this.userList.filter((res) => {
+    let list = this.tempData.filter((res) => {
       const name = res.username;
-      return name.toLowerCase().includes(this.search.toLowerCase());
+      this.search = this.search.trim()
+      const search = this.search.toLowerCase()
+      return name.toLowerCase().includes(search);
     })
-    console.log('list:', list)
+
     this.userList = list
     if (this.search == null || this.search == '') {
       this.getAllData()
     }
+
+    if (list.length == 0) {
+      this.listEmpty = true
+    } else {
+      this.listEmpty = false
+    }
+
   }
 }

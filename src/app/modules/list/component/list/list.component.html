@@ -1,7 +1,7 @@
 <mat-card class="container">
     <h2>list</h2>
     <mat-form-field appearance="outline" class="max-100">
-        <mat-label>User Name</mat-label>
+        <mat-label> Search User Name</mat-label>
         <input matInput [(ngModel)]="search" (input)="onSearch()">
     </mat-form-field>
 
@@ -29,5 +29,5 @@
             </div>
         </mat-list-item>
     </mat-list>
-
+    <h2 *ngIf="listEmpty">NOT FOUND LIST</h2>
 </mat-card>

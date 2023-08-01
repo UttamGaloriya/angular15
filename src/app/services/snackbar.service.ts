@@ -8,7 +8,7 @@ export class SnackbarService {
   constructor(private snackbar: MatSnackBar) { }
   showSnackBar(displayMessage: string, buttonText: string, messageType: 'error' | 'success' | 'info') {
     this.snackbar.open(displayMessage, buttonText, {
-      duration: 500000,
+      duration: 1000,
       horizontalPosition: 'center',
       verticalPosition: 'top',
       panelClass: messageType

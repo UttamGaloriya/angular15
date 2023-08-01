@@ -23,14 +23,6 @@
       "type": "user",
       "password": "12345",
       "id": 3
-    },
-    {
-      "firstName": "raj",
-      "lastName": "ram",
-      "username": "raj",
-      "type": "user",
-      "password": "Raj@12345",
-      "id": 4
     }
   ]
 }

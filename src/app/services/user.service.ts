@@ -32,7 +32,7 @@ export class UserService {
   }
 
   update(user: UserData, id: number): Observable<any> {
-    return this.http.put(`${this.url}/users/${id}`, user).pipe(tap((res) => { this.userData.next(res) }))
+    return this.http.put(`${this.url}/users/${id}`, user).pipe(tap((res) => { this.userData.next(res), this.snackBar.showSnackBar(`data Update successfully`, 'ok', 'success') }))
   }
 
   signUp(user: UserData): Observable<any> {
