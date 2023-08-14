@@ -1,9 +1,8 @@
 import { Component, Inject } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
-import { UserService } from 'src/app/services/user.service';
-import { UserData } from 'src/app/shared/all-interface';
+import { UserService } from '../../../../services/user.service';
+
 
 @Component({
   selector: 'app-signup',

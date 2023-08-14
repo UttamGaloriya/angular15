@@ -76,4 +76,8 @@ export class UserService {
       })
     )
   }
+
+  spyTry(): number {
+    return 1
+  }
 }
